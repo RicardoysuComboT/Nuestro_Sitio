@@ -321,34 +321,37 @@
   <footer>
     <p>&copy; 2025 Ricardo y su Combo-T. Todos los derechos reservados. Modo Fiesta: Activado.</p>
   </footer>
-<!-- 🎶 Audio que se reproduce al cargar la página -->
-<audio id="combo-audio" autoplay loop>
-  <source src="intro.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio HTML5.
-</audio>
+<!-- 🎶 Reproductor Combo-T con botón de control -->
+<div style="text-align:center; margin: 2rem;">
+  <audio id="combo-audio" autoplay>
+    <source src="intro.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+  <button onclick="toggleAudio()" style="padding: 0.5rem 1rem; font-weight: bold; background:#00ffff; border:none; border-radius: 5px; cursor:pointer;">
+    🔊 Activar / Pausar Música
+  </button>
+</div>
 
 <script>
   const audio = document.getElementById("combo-audio");
 
-  // Función para pausar el audio cuando se hace clic en un iframe de YouTube
-  function pauseAudioIfVideoPlays() {
-    const iframes = document.querySelectorAll("iframe");
-
-    iframes.forEach(iframe => {
-      iframe.addEventListener("mouseenter", () => {
-        if (!audio.paused) {
-          audio.pause();
-        }
-      });
-    });
+  // Guardar estado del audio en localStorage
+  if (localStorage.getItem("comboAudioPaused") === "false") {
+    audio.play().catch(() => {});
+  } else {
+    audio.pause();
   }
 
-  // Ejecutar después de cargar todos los iframes
-  window.addEventListener("load", () => {
-    pauseAudioIfVideoPlays();
-  });
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+      localStorage.setItem("comboAudioPaused", "false");
+    } else {
+      audio.pause();
+      localStorage.setItem("comboAudioPaused", "true");
+    }
+  }
 </script>
-
   
 </body>
 </html>
