@@ -321,7 +321,35 @@
   <footer>
     <p>&copy; 2025 Ricardo y su Combo-T. Todos los derechos reservados. Modo Fiesta: Activado.</p>
   </footer>
+<!-- 🎶 Audio que se reproduce al cargar la página -->
+<audio id="combo-audio" autoplay loop>
+  <source src="intro.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
+</audio>
 
+<script>
+  const audio = document.getElementById("combo-audio");
+
+  // Función para pausar el audio cuando se hace clic en un iframe de YouTube
+  function pauseAudioIfVideoPlays() {
+    const iframes = document.querySelectorAll("iframe");
+
+    iframes.forEach(iframe => {
+      iframe.addEventListener("mouseenter", () => {
+        if (!audio.paused) {
+          audio.pause();
+        }
+      });
+    });
+  }
+
+  // Ejecutar después de cargar todos los iframes
+  window.addEventListener("load", () => {
+    pauseAudioIfVideoPlays();
+  });
+</script>
+
+  
 </body>
 </html>
 
