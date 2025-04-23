@@ -321,25 +321,42 @@
   <footer>
     <p>&copy; 2025 Ricardo y su Combo-T. Todos los derechos reservados. Modo Fiesta: Activado.</p>
   </footer>
-<!-- 🎶 Reproductor Combo-T con botón de control -->
-<div style="text-align:center; margin: 2rem;">
-  <audio id="combo-audio" autoplay>
-    <source src="intro.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio HTML5.
-  </audio>
-  <button onclick="toggleAudio()" style="padding: 0.5rem 1rem; font-weight: bold; background:#00ffff; border:none; border-radius: 5px; cursor:pointer;">
-    🔊 Activar / Pausar Música
-  </button>
-</div>
+<!-- 🎶 Reproductor Combo-T con botón flotante -->
+<audio id="combo-audio" autoplay loop>
+  <source src="intro.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
+</audio>
+
+<button id="music-toggle" onclick="toggleAudio()"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: #00ffff;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ffffaa;
+  ">
+  🔊 Música ON/OFF
+</button>
 
 <script>
   const audio = document.getElementById("combo-audio");
+  const toggleBtn = document.getElementById("music-toggle");
 
-  // Guardar estado del audio en localStorage
-  if (localStorage.getItem("comboAudioPaused") === "false") {
-    audio.play().catch(() => {});
-  } else {
+  // Recuperar estado anterior
+  const isPaused = localStorage.getItem("comboAudioPaused") === "true";
+
+  if (isPaused) {
     audio.pause();
+  } else {
+    audio.play().catch(() => {});
   }
 
   function toggleAudio() {
@@ -352,6 +369,7 @@
     }
   }
 </script>
+
   
 </body>
 </html>
